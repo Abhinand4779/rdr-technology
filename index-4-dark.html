@@ -178,28 +178,49 @@
    <span class="rdr-word rdr-word-1">RDR</span><span class="rdr-space">&nbsp;</span><span class="rdr-word rdr-word-2">TECHNOLOGY</span>
 </h1>
 <style>
-.rdr-futuristic-title { display:flex!important; gap:0; justify-content:center; align-items:center; will-change:transform; position:relative; }
-.rdr-space { display:inline-block; width:0.3em; }
-.rdr-word { display:inline-block; opacity:0; transform:translateY(60px) skewX(-8deg);
-  background:linear-gradient(135deg,#ffffff 0%,#a0e8ff 40%,#00d4ff 70%,#ffffff 100%);
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-  filter:drop-shadow(0 0 20px rgba(0,212,255,0.9)) drop-shadow(0 0 50px rgba(0,212,255,0.4));
-  letter-spacing:0.04em; }
-.rdr-word.rdr-revealed { animation:rdrReveal 1.1s cubic-bezier(0.16,1,0.3,1) forwards; }
-.rdr-word-2.rdr-revealed { animation-delay:0.2s; }
-@keyframes rdrReveal {
-  0%   { opacity:0; transform:translateY(60px) skewX(-8deg); }
-  60%  { opacity:1; transform:translateY(-6px) skewX(1deg); }
-  80%  { transform:translateY(3px) skewX(-1deg); }
-  100% { opacity:1; transform:translateY(0) skewX(0); }
+/* === RDR TECHNOLOGY Futuristic Animation === */
+.rdr-futuristic-title {
+  display: flex !important;
+  gap: 0;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: visible !important;
+  will-change: transform;
 }
+.rdr-space { display: inline-block; width: 0.28em; }
+.rdr-word {
+  display: inline-block;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+  text-shadow:
+    0 0 15px rgba(0, 210, 255, 1),
+    0 0 40px rgba(0, 210, 255, 0.6),
+    0 0 80px rgba(0, 210, 255, 0.3);
+  animation: rdrSlideIn 1s cubic-bezier(0.16,1,0.3,1) both;
+}
+.rdr-word-2 { animation-delay: 0.22s; }
+
+@keyframes rdrSlideIn {
+  from { opacity: 0; transform: translateY(50px); letter-spacing: -0.1em; }
+  to   { opacity: 1; transform: translateY(0);    letter-spacing: 0.04em; }
+}
+
+/* Persistent glow pulse */
+@keyframes rdrPulse {
+  0%, 100% { text-shadow: 0 0 15px rgba(0,210,255,1), 0 0 40px rgba(0,210,255,0.6), 0 0 80px rgba(0,210,255,0.3); }
+  50%       { text-shadow: 0 0 25px rgba(0,210,255,1), 0 0 70px rgba(0,210,255,0.8), 0 0 120px rgba(0,210,255,0.5); }
+}
+.rdr-word.rdr-animate { animation: rdrPulse 3s ease-in-out infinite; }
+
+/* Glitch effect every few seconds */
 @keyframes rdrGlitch {
-  0%,94%,100% { clip-path:none; transform:translate(0) skewX(0); }
-  95% { clip-path:inset(30% 0 40% 0); transform:translate(-4px,2px) skewX(2deg); filter:drop-shadow(0 0 20px rgba(0,212,255,0.9)) drop-shadow(4px 0 0 rgba(255,0,80,0.7)); }
-  96% { clip-path:inset(60% 0 20% 0); transform:translate(4px,-2px) skewX(-2deg); filter:drop-shadow(0 0 20px rgba(0,212,255,0.9)) drop-shadow(-4px 0 0 rgba(0,255,180,0.7)); }
-  97% { clip-path:none; transform:translate(0) skewX(0); }
+  0%,92%,100% { text-shadow: 0 0 20px rgba(0,210,255,1), 0 0 50px rgba(0,210,255,0.6); transform: translate(0); }
+  93% { text-shadow: -3px 0 rgba(255,0,80,0.8), 3px 0 rgba(0,255,200,0.8); transform: translate(-3px,1px); }
+  94% { text-shadow: 3px 0 rgba(255,0,80,0.8), -3px 0 rgba(0,255,200,0.8); transform: translate(3px,-1px); }
+  95% { text-shadow: 0 0 20px rgba(0,210,255,1), 0 0 50px rgba(0,210,255,0.6); transform: translate(0); }
 }
-.rdr-word.rdr-glitch { animation:rdrGlitch 5s infinite 1.5s; }
+.rdr-word.rdr-animate { animation: rdrPulse 3s ease-in-out infinite, rdrGlitch 7s infinite 2s; }
 </style>
                         </div>
                      </div>
@@ -1782,28 +1803,25 @@
 
 <script>
 (function(){
-  var words = document.querySelectorAll('.rdr-word');
-  var title = document.querySelector('.rdr-futuristic-title');
-  var heroEl = document.querySelector('.sd-hero-area');
+  var words = document.querySelectorAll(".rdr-word");
+  var title = document.querySelector(".rdr-futuristic-title");
+  var heroEl = document.querySelector(".sd-hero-area");
+  /* Add persistent glow + glitch after slide-in finishes */
   setTimeout(function(){
-    words.forEach(function(w){ w.classList.add('rdr-revealed'); });
-    setTimeout(function(){
-      words.forEach(function(w){ w.classList.add('rdr-glitch'); });
-    }, 1500);
-  }, 500);
+    words.forEach(function(w){ w.classList.add("rdr-animate"); });
+  }, 1400);
+  /* Scroll parallax - split left/right */
   function onScroll(){
-    if(!heroEl) return;
+    if(!heroEl || !title) return;
     var rect = heroEl.getBoundingClientRect();
     var progress = Math.max(0, Math.min(1, -rect.top / window.innerHeight));
-    var shift = progress * 130;
-    if(words[0]) words[0].style.transform = 'translateX(-'+shift+'px)';
-    if(words[1]) words[1].style.transform = 'translateX('+shift+'px)';
-    if(title){
-      title.style.opacity = Math.max(0, 1 - progress * 1.8).toString();
-      title.style.filter = 'blur('+Math.min(progress*10,10)+'px)';
-    }
+    var shift = progress * 140;
+    if(words[0]) words[0].style.marginLeft = (-shift) + "px";
+    if(words[1]) words[1].style.marginLeft = shift + "px";
+    title.style.opacity = Math.max(0, 1 - progress * 1.6);
+    title.style.filter  = "blur(" + Math.min(progress * 8, 8) + "px)";
   }
-  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener("scroll", onScroll, {passive:true});
 })();
 </script>
 </body>
@@ -1811,4 +1829,6 @@
 
 <!-- Mirrored from ordainit.com/html/reak/reak/index-4-dark.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 13 Apr 2026 09:41:40 GMT -->
 </html>
+
+
 
