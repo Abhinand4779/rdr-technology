@@ -166,52 +166,93 @@
                      <div class="col-xl-12">
                         <div class="sd-hero-title-box text-center">
                            <h1 class="sd-hero-title rdr-futuristic-title">
-   <span class="rdr-word rdr-word-1">RDR</span><span class="rdr-space">&nbsp;</span><span class="rdr-word rdr-word-2">TECHNOLOGY</span>
+   <span class="rdr-word rdr-word-1" data-text="RDR">RDR</span><span class="rdr-space">&nbsp;</span><span class="rdr-word rdr-word-2" data-text="TECHNOLOGY">TECHNOLOGY</span>
 </h1>
 <style>
-/* === RDR TECHNOLOGY Futuristic Animation === */
+/* === RDR TECHNOLOGY Dynamic & Futuristic Animation === */
 .rdr-futuristic-title {
   display: flex !important;
-  gap: 0;
   justify-content: center;
   align-items: center;
   position: relative;
   overflow: visible !important;
-  will-change: transform;
 }
 .rdr-space { display: inline-block; width: 0.28em; }
 .rdr-word {
+  position: relative;
   display: inline-block;
-  color: #ffffff;
-  letter-spacing: 0.04em;
-  text-shadow:
-    0 0 15px rgba(0, 210, 255, 1),
-    0 0 40px rgba(0, 210, 255, 0.6),
-    0 0 80px rgba(0, 210, 255, 0.3);
-  animation: rdrSlideIn 1s cubic-bezier(0.16,1,0.3,1) both;
-}
-.rdr-word-2 { animation-delay: 0.22s; }
-
-@keyframes rdrSlideIn {
-  from { opacity: 0; transform: translateY(50px); letter-spacing: -0.1em; }
-  to   { opacity: 1; transform: translateY(0);    letter-spacing: 0.04em; }
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  /* Base text glow */
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.5), 0 0 20px rgba(0, 212, 255, 0.3);
 }
 
-/* Persistent glow pulse */
-@keyframes rdrPulse {
-  0%, 100% { text-shadow: 0 0 15px rgba(0,210,255,1), 0 0 40px rgba(0,210,255,0.6), 0 0 80px rgba(0,210,255,0.3); }
-  50%       { text-shadow: 0 0 25px rgba(0,210,255,1), 0 0 70px rgba(0,210,255,0.8), 0 0 120px rgba(0,210,255,0.5); }
+/* Shimmer/Sweep Effect Overlay */
+.rdr-word::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  color: transparent;
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 212, 255, 0.8) 40%, #ffffff 50%, rgba(0, 212, 255, 0.8) 60%, transparent 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: rdrShimmer 3.5s infinite linear;
+  z-index: 2;
 }
-.rdr-word.rdr-animate { animation: rdrPulse 3s ease-in-out infinite; }
 
-/* Glitch effect every few seconds */
-@keyframes rdrGlitch {
-  0%,92%,100% { text-shadow: 0 0 20px rgba(0,210,255,1), 0 0 50px rgba(0,210,255,0.6); transform: translate(0); }
-  93% { text-shadow: -3px 0 rgba(255,0,80,0.8), 3px 0 rgba(0,255,200,0.8); transform: translate(-3px,1px); }
-  94% { text-shadow: 3px 0 rgba(255,0,80,0.8), -3px 0 rgba(0,255,200,0.8); transform: translate(3px,-1px); }
-  95% { text-shadow: 0 0 20px rgba(0,210,255,1), 0 0 50px rgba(0,210,255,0.6); transform: translate(0); }
+@keyframes rdrShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
-.rdr-word.rdr-animate { animation: rdrPulse 3s ease-in-out infinite, rdrGlitch 7s infinite 2s; }
+
+/* Continuous Subtle Floating */
+@keyframes rdrFloat1 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes rdrFloat2 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+.rdr-word-1 { animation: rdrFloat1 4s ease-in-out infinite; }
+.rdr-word-2 { animation: rdrFloat2 5s ease-in-out infinite; }
+
+/* Glitch Pseudo Elements */
+.rdr-word::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  color: #fff;
+  text-shadow: -3px 0 red, 3px 0 cyan;
+  background: transparent;
+  z-index: 1;
+}
+
+@keyframes rdrGlitchActive {
+  0%, 95% { opacity: 0; clip-path: none; transform: translate(0); }
+  96% { opacity: 1; clip-path: inset(10% 0 60% 0); transform: translate(-4px, 2px); }
+  97% { opacity: 1; clip-path: inset(50% 0 20% 0); transform: translate(4px, -2px); }
+  98% { opacity: 1; clip-path: inset(20% 0 80% 0); transform: translate(-2px, 4px); }
+  99% { opacity: 0; transform: translate(0); }
+  100% { opacity: 0; }
+}
+
+.rdr-word::after {
+  animation: rdrGlitchActive 6s infinite;
+}
+.rdr-word-2::after {
+  animation-delay: 3s;
+}
 </style>
                         </div>
                      </div>
@@ -1820,6 +1861,7 @@
 
 <!-- Mirrored from ordainit.com/html/reak/reak/index-4-dark.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 13 Apr 2026 09:41:40 GMT -->
 </html>
+
 
 
 
