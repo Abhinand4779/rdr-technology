@@ -169,27 +169,39 @@
    <span class="rdr-word rdr-word-1" data-text="RDR">RDR</span><span class="rdr-space">&nbsp;</span><span class="rdr-word rdr-word-2" data-text="TECHNOLOGY">TECHNOLOGY</span>
 </h1>
 <style>
-/* === RDR TECHNOLOGY Dynamic & Futuristic Animation === */
+/* === RDR TECHNOLOGY 3D Dynamic Animation === */
 .rdr-futuristic-title {
   display: flex !important;
   justify-content: center;
   align-items: center;
   position: relative;
   overflow: visible !important;
+  perspective: 1000px;
 }
 .rdr-space { display: inline-block; width: 0.28em; }
 .rdr-word {
   position: relative;
   display: inline-block;
-  color: #fff;
-  font-weight: 700;
+  color: #e0f7ff;
+  font-weight: 800;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  /* Base text glow */
-  text-shadow: 0 0 10px rgba(0, 212, 255, 0.5), 0 0 20px rgba(0, 212, 255, 0.3);
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+  /* Thick 3D Extrusion + Glow */
+  text-shadow: 
+    1px 1px 0px #005a7a,
+    2px 2px 0px #004d69,
+    3px 3px 0px #004057,
+    4px 4px 0px #003345,
+    5px 5px 0px #002633,
+    6px 6px 0px #001a22,
+    7px 7px 10px rgba(0, 212, 255, 0.6),
+    0 0 20px rgba(0, 212, 255, 0.4),
+    0 0 40px rgba(0, 212, 255, 0.2);
 }
 
-/* Shimmer/Sweep Effect Overlay */
+/* Overlay for reflective sheen */
 .rdr-word::before {
   content: attr(data-text);
   position: absolute;
@@ -198,61 +210,31 @@
   width: 100%;
   height: 100%;
   color: transparent;
-  background: linear-gradient(90deg, transparent 0%, rgba(0, 212, 255, 0.8) 40%, #ffffff 50%, rgba(0, 212, 255, 0.8) 60%, transparent 100%);
-  background-size: 200% 100%;
+  background: linear-gradient(135deg, transparent 20%, rgba(255,255,255,0.7) 40%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.7) 60%, transparent 80%);
+  background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
-  animation: rdrShimmer 3.5s infinite linear;
+  animation: rdrShine 4s infinite linear;
   z-index: 2;
+  transform: translateZ(10px);
 }
 
-@keyframes rdrShimmer {
+@keyframes rdrShine {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
 
-/* Continuous Subtle Floating */
+/* Subtle floating for 3D feel */
 @keyframes rdrFloat1 {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  0%, 100% { margin-top: 0; }
+  50% { margin-top: -10px; }
 }
 @keyframes rdrFloat2 {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(8px); }
+  0%, 100% { margin-top: 0; }
+  50% { margin-top: 10px; }
 }
 .rdr-word-1 { animation: rdrFloat1 4s ease-in-out infinite; }
 .rdr-word-2 { animation: rdrFloat2 5s ease-in-out infinite; }
-
-/* Glitch Pseudo Elements */
-.rdr-word::after {
-  content: attr(data-text);
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  color: #fff;
-  text-shadow: -3px 0 red, 3px 0 cyan;
-  background: transparent;
-  z-index: 1;
-}
-
-@keyframes rdrGlitchActive {
-  0%, 95% { opacity: 0; clip-path: none; transform: translate(0); }
-  96% { opacity: 1; clip-path: inset(10% 0 60% 0); transform: translate(-4px, 2px); }
-  97% { opacity: 1; clip-path: inset(50% 0 20% 0); transform: translate(4px, -2px); }
-  98% { opacity: 1; clip-path: inset(20% 0 80% 0); transform: translate(-2px, 4px); }
-  99% { opacity: 0; transform: translate(0); }
-  100% { opacity: 0; }
-}
-
-.rdr-word::after {
-  animation: rdrGlitchActive 6s infinite;
-}
-.rdr-word-2::after {
-  animation-delay: 3s;
-}
 </style>
                         </div>
                      </div>
@@ -1838,10 +1820,7 @@
   var words = document.querySelectorAll(".rdr-word");
   var title = document.querySelector(".rdr-futuristic-title");
   var heroEl = document.querySelector(".sd-hero-area");
-  /* Add persistent glow + glitch after slide-in finishes */
-  setTimeout(function(){
-    words.forEach(function(w){ w.classList.add("rdr-animate"); });
-  }, 1400);
+  
   /* Scroll parallax - split left/right */
   function onScroll(){
     if(!heroEl || !title) return;
@@ -1854,6 +1833,28 @@
     title.style.filter  = "blur(" + Math.min(progress * 8, 8) + "px)";
   }
   window.addEventListener("scroll", onScroll, {passive:true});
+
+  /* 3D Mouse Tracking Tilt */
+  if (heroEl && title) {
+    heroEl.addEventListener("mousemove", function(e) {
+      var rect = title.getBoundingClientRect();
+      var x = e.clientX - rect.left - rect.width/2;
+      var y = e.clientY - rect.top - rect.height/2;
+      
+      var rotateX = -(y / rect.height) * 30; // Max 15 deg tilt
+      var rotateY = (x / rect.width) * 30;
+      
+      words.forEach(function(w) {
+        w.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+    });
+    
+    heroEl.addEventListener("mouseleave", function() {
+      words.forEach(function(w) {
+        w.style.transform = `rotateX(0deg) rotateY(0deg)`;
+      });
+    });
+  }
 })();
 </script>
 </body>
@@ -1861,6 +1862,7 @@
 
 <!-- Mirrored from ordainit.com/html/reak/reak/index-4-dark.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 13 Apr 2026 09:41:40 GMT -->
 </html>
+
 
 
 
