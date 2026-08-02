@@ -7867,3 +7867,16 @@ input[type=color] {
     height: auto !important;
     max-height: unset !important;
 }
+
+/* Adjusted Logo Size - keeping it reasonably large without stretching navbar */
+.oit-header-logo img {
+    max-width: 220px !important;
+    width: 220px !important;
+    height: auto !important;
+    max-height: 70px !important;
+    object-fit: contain !important;
+}
+.oit-header-area {
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+}
