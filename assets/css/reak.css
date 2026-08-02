@@ -7853,3 +7853,17 @@ input[type=color] {
     max-height: 60px !important;
     width: auto !important;
 }
+
+/* Force Large Logo Size */
+.oit-header-logo img {
+    max-width: 300px !important;
+    width: 300px !important;
+    height: auto !important;
+    max-height: unset !important;
+}
+.oitoffcanvas__logo img {
+    max-width: 200px !important;
+    width: 200px !important;
+    height: auto !important;
+    max-height: unset !important;
+}
