@@ -1,4 +1,4 @@
-/*-----------------------------------------------------------------------------------
+﻿/*-----------------------------------------------------------------------------------
 
     Theme Name: Reak - Creative Agency & Portfolio HTML Template
     Author: Ordianit
@@ -7844,39 +7844,20 @@ input[type=color] {
 
 /*# sourceMappingURL=reak.css.map */
 
-/* Custom Logo Sizing for RDR Technology */
+/* Perfect Logo Scaling - scales logo without stretching navbar */
 .oit-header-logo img {
-    max-height: 80px !important;
+    /* Base size that fits perfectly in navbar flow */
+    max-height: 40px !important;
     width: auto !important;
-}
-.oitoffcanvas__logo img {
-    max-height: 60px !important;
-    width: auto !important;
+    
+    /* Visually scale it up without affecting document flow (navbar height) */
+    transform: scale(2.8) !important;
+    transform-origin: left center !important;
 }
 
-/* Force Large Logo Size */
-.oit-header-logo img {
-    max-width: 300px !important;
-    width: 300px !important;
-    height: auto !important;
-    max-height: unset !important;
-}
 .oitoffcanvas__logo img {
-    max-width: 200px !important;
-    width: 200px !important;
-    height: auto !important;
-    max-height: unset !important;
-}
-
-/* Adjusted Logo Size - keeping it reasonably large without stretching navbar */
-.oit-header-logo img {
-    max-width: 220px !important;
-    width: 220px !important;
-    height: auto !important;
-    max-height: 70px !important;
-    object-fit: contain !important;
-}
-.oit-header-area {
-    padding-top: 15px !important;
-    padding-bottom: 15px !important;
+    max-height: 40px !important;
+    width: auto !important;
+    transform: scale(2.2) !important;
+    transform-origin: left center !important;
 }
