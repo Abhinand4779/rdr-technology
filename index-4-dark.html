@@ -165,7 +165,7 @@
                   <div class="row">
                      <div class="col-xl-12">
                         <div class="sd-hero-title-box text-center">
-                           <h1 class="sd-hero-title rdr-premium-title mb-20 fade-anim" data-delay=".3">RDR TECHNOLOGY</h1>
+                           <h1 class="sd-hero-title rdr-premium-title mb-20 fade-anim" data-delay=".3">RDR <br> TECHNOLOGY</h1>
                         </div>
                      </div>
                   </div>
@@ -1424,44 +1424,23 @@
 
 <script>
 (function(){
-  var words = document.querySelectorAll(".rdr-word");
-  var title = document.querySelector(".rdr-futuristic-title");
-  var heroEl = document.querySelector(".sd-hero-area");
+  var premiumTitle = document.querySelector(".rdr-premium-title");
   
-  /* Scroll parallax - split left/right */
   function onScroll(){
-    if(!heroEl || !title) return;
-    var rect = heroEl.getBoundingClientRect();
-    var progress = Math.max(0, Math.min(1, -rect.top / window.innerHeight));
-    var shift = progress * 140;
-    if(words[0]) words[0].style.marginLeft = (-shift) + "px";
-    if(words[1]) words[1].style.marginLeft = shift + "px";
-    title.style.opacity = Math.max(0, 1 - progress * 1.6);
-    title.style.filter  = "blur(" + Math.min(progress * 8, 8) + "px)";
-  }
-  window.addEventListener("scroll", onScroll, {passive:true});
-
-  /* 3D Mouse Tracking Tilt */
-  if (heroEl && title) {
-    heroEl.addEventListener("mousemove", function(e) {
-      var rect = title.getBoundingClientRect();
-      var x = e.clientX - rect.left - rect.width/2;
-      var y = e.clientY - rect.top - rect.height/2;
-      
-      var rotateX = -(y / rect.height) * 30; // Max 15 deg tilt
-      var rotateY = (x / rect.width) * 30;
-      
-      words.forEach(function(w) {
-        w.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      });
-    });
+    if(!premiumTitle) return;
     
-    heroEl.addEventListener("mouseleave", function() {
-      words.forEach(function(w) {
-        w.style.transform = `rotateX(0deg) rotateY(0deg)`;
-      });
-    });
+    // Calculate how far we've scrolled down
+    var scrollY = window.scrollY || window.pageYOffset;
+    
+    // The text fades out completely after scrolling 400px
+    var opacity = Math.max(0, 1 - (scrollY / 400));
+    premiumTitle.style.opacity = opacity;
+    
+    // Optional parallax effect
+    premiumTitle.style.transform = "translateY(" + (scrollY * 0.35) + "px)";
   }
+  
+  window.addEventListener("scroll", onScroll, {passive:true});
 })();
 </script>
 </body>
