@@ -7918,3 +7918,12 @@ input[type=color] {
         margin-top: 20px;
     }
 }
+
+/* Hide portfolio/project categories and tags as requested */
+.st-project-category,
+.st-project-content > span,
+.oit-project-category,
+.portfolio-category,
+.portfolio-tags {
+    display: none !important;
+}
