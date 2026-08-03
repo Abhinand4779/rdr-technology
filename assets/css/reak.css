@@ -7894,3 +7894,27 @@ input[type=color] {
         background-position: 200% center;
     }
 }
+
+/* Fix for large generated service thumbnail images */
+.oit-service-thumb {
+    width: 450px !important;
+    max-width: 45% !important;
+    flex: 0 0 auto !important;
+}
+.oit-service-thumb img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+    border-radius: 12px;
+}
+.oit-service-content-wrap {
+    flex: 1 1 auto !important;
+    padding-right: 20px;
+}
+@media (max-width: 991px) {
+    .oit-service-thumb {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-top: 20px;
+    }
+}
