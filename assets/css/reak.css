@@ -1,4 +1,4 @@
-﻿/*-----------------------------------------------------------------------------------
+/*-----------------------------------------------------------------------------------
 
     Theme Name: Reak - Creative Agency & Portfolio HTML Template
     Author: Ordianit
@@ -5491,8 +5491,8 @@ input[type=color] {
   background-size: covar;
 }
 .sd-hero-title {
-  font-size: 320px;
-  line-height: 0.8;
+  font-size: clamp(60px, 11vw, 320px);
+  line-height: 0.9;
   margin-bottom: 220px;
   color: var(--oit-clr-white);
   white-space: nowrap;
