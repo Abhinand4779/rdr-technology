@@ -5491,8 +5491,8 @@ input[type=color] {
   background-size: covar;
 }
 .sd-hero-title {
-  font-size: 130px;
-  line-height: 0.9;
+  font-size: 320px;
+  line-height: 0.8;
   margin-bottom: 220px;
   color: var(--oit-clr-white);
   white-space: nowrap;
@@ -7860,4 +7860,37 @@ input[type=color] {
     width: auto !important;
     transform: scale(2.2) !important;
     transform-origin: left center !important;
+}
+
+/* Premium High-End Hero Title Animation */
+.rdr-premium-title {
+    background: linear-gradient(
+        110deg,
+        #ffffff 15%,
+        #cce5ff 25%,
+        #ffffff 35%,
+        #ffffff 65%,
+        #cce5ff 75%,
+        #ffffff 85%
+    );
+    background-size: 200% auto;
+    color: transparent !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    
+    /* Smooth, elegant shine sweep */
+    animation: premiumShine 7s linear infinite;
+    
+    /* A premium, ethereal glow */
+    text-shadow: 0 0 40px rgba(204, 229, 255, 0.15);
+    
+    /* Ensure text looks ultra-crisp */
+    -webkit-font-smoothing: antialiased;
+    font-weight: 800;
+}
+
+@keyframes premiumShine {
+    to {
+        background-position: 200% center;
+    }
 }
