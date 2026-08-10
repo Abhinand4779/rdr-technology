@@ -27,7 +27,7 @@
 /*----------------------------------------*/
 /*  1.1 Theme Css
 /*----------------------------------------*/
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 :root {
   /**=========== color ===========*/
   --oit-clr-white: #fff;
@@ -41,10 +41,10 @@
 
 :root {
   /**========== font family ==============*/
-  --oit-ff-body: "Inter", sans-serif;
-  --oit-ff-heading: "Outfit", sans-serif;
-  --oit-ff-funnel: "Outfit", sans-serif;
-  --oit-ff-p: "Inter", sans-serif;
+  --oit-ff-body: "Poppins", sans-serif;
+  --oit-ff-heading: "Poppins", sans-serif;
+  --oit-ff-funnel: "Poppins", sans-serif;
+  --oit-ff-p: "Poppins", sans-serif;
   --oit-ff-fontawesome: "Font Awesome 6 Pro";
 }
 
